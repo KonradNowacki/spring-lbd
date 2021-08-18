@@ -1,8 +1,6 @@
 package pl.fis.lbd.service;
 
-
 import pl.fis.lbd.entity.employee.Employee;
-
 import java.util.List;
 
 public interface EmployeeService {

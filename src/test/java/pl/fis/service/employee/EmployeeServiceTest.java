@@ -1,26 +1,27 @@
 package pl.fis.service.employee;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.test.context.junit4.SpringRunner;
 import pl.fis.lbd.entity.employee.Employee;
 import pl.fis.lbd.service.EmployeeService;
 import pl.fis.lbd.service.employee.EmployeeServiceImpl1;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@TestPropertySource(properties = {"lbd.prefix=bbb"})
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = EmployeeService.class)
+@TestPropertySource(properties = {"lbd.prefix=aaa", "lbd.suffix=zzz"})
 class EmployeeServiceTest {
 
+    // Doesn't work, couldn't mock application.properties properly
 //    @Test
 //    void getUserByNicknameReturnsCorrectly() {
 //        EmployeeService employeeService = new EmployeeServiceImpl1();
-//        String nickname = employeeService.getEmployeeByNickname("Konrad", "Nowacki");
-//        assertThat(nickname).isEqualTo("aaaKonNowzzz");
+//        String nickname = employeeService.getEmployeeByNickname("John", "Rambo");
+//        assertThat(nickname).isEqualTo("aaaJohRamzzz");
 //    }
 
 
@@ -33,7 +34,6 @@ class EmployeeServiceTest {
         emp1.setLastName("Rambo");
 
         EmployeeService employeeService = new EmployeeServiceImpl1();
-        employeeService.save(emp1);
         employeeService.save(emp1);
 
         Employee foundEmployeeByLastName = employeeService.findByName("Rambo");
